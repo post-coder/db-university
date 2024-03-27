@@ -77,5 +77,27 @@ ORDER BY `teachers`.`surname` ASC;
 per ogni esame, stampando anche il voto massimo. Successivamente,
 filtrare i tentativi con voto minimo 18.
 
+7.1
+SELECT students.name, students.surname, COUNT(courses.id) AS 'tentativi', courses.name AS 'corso', MAX(exam_student.vote) AS 'voto_massimo'
+FROM `students`
+INNER JOIN exam_student
+ON students.id = exam_student.student_id 
+INNER JOIN exams
+ON exam_student.exam_id = exams.id
+INNER JOIN courses
+ON exams.course_id = courses.id
+GROUP BY students.id, exams.course_id;
+
+7.1
+SELECT students.name, students.surname, COUNT(courses.id) AS 'tentativi', courses.name AS 'corso', MAX(exam_student.vote) AS 'voto_massimo'
+FROM `students`
+INNER JOIN exam_student
+ON students.id = exam_student.student_id 
+INNER JOIN exams
+ON exam_student.exam_id = exams.id
+INNER JOIN courses
+ON exams.course_id = courses.id
+WHERE exam_student.vote >= 18
+GROUP BY students.id, exams.course_id;
 
 
